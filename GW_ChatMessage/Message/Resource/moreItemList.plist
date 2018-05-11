@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>imageName</key>
+		<string>sharemore_pic</string>
+		<key>titleName</key>
+		<string>照片</string>
+		<key>status</key>
+		<integer>66</integer>
+		<key>statusStr</key>
+		<string>GW_ChatBoxItemAlbum</string>
+	</dict>
+	<dict>
+		<key>imageName</key>
+		<string>sharemore_video</string>
+		<key>titleName</key>
+		<string>拍摄</string>
+		<key>status</key>
+		<integer>67</integer>
+		<key>statusStr</key>
+		<string>GW_ChatBoxItemCamera</string>
+	</dict>
+	<dict>
+		<key>imageName</key>
+		<string>sharemore_sight</string>
+		<key>titleName</key>
+		<string>小视频</string>
+		<key>status</key>
+		<integer>68</integer>
+		<key>statusStr</key>
+		<string>GW_ChatBoxItemVideo</string>
+	</dict>
+	<dict>
+		<key>imageName</key>
+		<string>sharemore_wallet</string>
+		<key>titleName</key>
+		<string>文件</string>
+		<key>status</key>
+		<integer>69</integer>
+		<key>statusStr</key>
+		<string>GW_ChatBoxItemDoc</string>
+	</dict>
+</array>
+</plist>
