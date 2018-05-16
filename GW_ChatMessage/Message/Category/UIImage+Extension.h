@@ -7,7 +7,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 @interface UIImage (Extension)
-
++ (UIImage *)GW_imageWithOriginalImage:(UIImage *)originalImage withScaleSize:(CGSize)size;
 
 + (UIImage *)draw_imageWithColor:(UIColor *)color;
 

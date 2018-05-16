@@ -7,7 +7,7 @@
 //
 
 #import "GW_AVPlayOpertion.h"
-
+#import "UIImage+Extension.h"
 @implementation GW_AVPlayOpertion
 
 - (void)videoPlayTask:(NSString *)filePath{
@@ -46,9 +46,11 @@
             if (bufferRef) {
                 CFRelease(bufferRef);
             }
-            
+
         });
         [NSThread sleepForTimeInterval:CMTimeGetSeconds(track.minFrameDuration)];
+//        如果时间间隔不准，就把间隔写死
+//        [NSThread sleepForTimeInterval:CMTimeGetSeconds(CMTimeMake(0.35, 1))];
     }
     [reader cancelReading];
 }
@@ -105,21 +107,13 @@
     UIGraphicsEndImageContext();
     //设置图片位置信息
     UIImage *image = [UIImage imageWithCGImage:imageRef scale:0 orientation:orientation];
-//    重绘一遍 将位置信息重绘进去
-    image = [self GW_imageWithOriginalImage:image withScaleSize:image.size];
+//    对设置好的图片进行重绘
+    image = [UIImage GW_imageWithOriginalImage:image withScaleSize:image.size];
     if (imageRef) {
         CGImageRelease(imageRef);
     }
     return image;
 }
 
-- (UIImage *)GW_imageWithOriginalImage:(UIImage *)originalImage withScaleSize:(CGSize)size {
-    UIGraphicsBeginImageContext(size);
-    [originalImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
-}
 
 @end

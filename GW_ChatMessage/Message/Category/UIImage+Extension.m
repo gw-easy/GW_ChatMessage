@@ -8,6 +8,15 @@
 
 @implementation UIImage (Extension)
 
++ (UIImage *)GW_imageWithOriginalImage:(UIImage *)originalImage withScaleSize:(CGSize)size{
+    UIGraphicsBeginImageContext(size);
+    [originalImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 + (UIImage *)draw_imageWithColor:(UIColor *)color{
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
