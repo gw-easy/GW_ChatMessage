@@ -13,7 +13,7 @@
 #import "GW_FileManager.h"
 #import "GW_AVPlayerManager.h"
 @interface GW_ChatMessageVideoCell()
-@property (nonatomic, strong) UIImageView *backImageView;
+@property (nonatomic, strong) UIView *backImageView;
 
 @property (nonatomic, strong) UIButton *topBtn;
 @end
@@ -37,15 +37,15 @@
     
     self.bubbleView.userInteractionEnabled = (videoArrowImage != nil);
     self.bubbleView.image = nil;
-    self.backImageView.image = videoArrowImage;
+    self.backImageView.layer.contents = (__bridge id _Nullable)(videoArrowImage.CGImage);
     self.topBtn.frame = CGRectMake(0, 0, self.backImageView.width, self.backImageView.height);
     
     self.backImageView.layer.mask = [UIImage shapeBezierPath:modelFrame.model.isSender imageSize:modelFrame.picViewF.size];
 }
 
-- (UIImageView *)backImageView{
+- (UIView *)backImageView{
     if (!_backImageView) {
-        _backImageView = [[UIImageView alloc] init];
+        _backImageView = [[UIView alloc] init];
         _backImageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageBtnClick:)];
         [_backImageView addGestureRecognizer:tap];
@@ -86,9 +86,11 @@
 -(void)reloadStart {
     __weak typeof(self) weakSelf=self;
     NSString *path = [[GW_VideoManager shareManager] videoPathForMP4:self.modelFrame.model.mediaPath];
-    [[GW_AVPlayerManager sharedManager] startPlayVideo:path withVideoDecode:^(NSString *filePath, UIImage *ref) {
+    [[GW_AVPlayerManager sharedManager] startPlayVideo:path withVideoDecode:^(NSString *filePath,UIImage *ref) {
         if ([filePath isEqualToString:path]) {
-            weakSelf.backImageView.image = ref;
+            if (ref) {
+                weakSelf.backImageView.layer.contents = (__bridge id _Nullable)ref.CGImage;
+            }
         }
     }];
     
@@ -100,6 +102,9 @@
         });
     } withFilePath:path];
 }
+
+
+
 
 -(void)stopVideo {
     _topBtn.hidden = NO;

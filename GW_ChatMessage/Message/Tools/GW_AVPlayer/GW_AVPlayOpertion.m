@@ -38,7 +38,6 @@
             GWLog(@"没有视频帧信息");
             return;
         }
-        
 
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.refBlock) {
@@ -106,10 +105,20 @@
     UIGraphicsEndImageContext();
     //设置图片位置信息
     UIImage *image = [UIImage imageWithCGImage:imageRef scale:0 orientation:orientation];
-    
+//    重绘一遍 将位置信息重绘进去
+    image = [self GW_imageWithOriginalImage:image withScaleSize:image.size];
     if (imageRef) {
         CGImageRelease(imageRef);
     }
+    return image;
+}
+
+- (UIImage *)GW_imageWithOriginalImage:(UIImage *)originalImage withScaleSize:(CGSize)size {
+    UIGraphicsBeginImageContext(size);
+    [originalImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
     return image;
 }
 
